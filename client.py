@@ -1,7 +1,14 @@
 import socket
+from subprocess import check_output
 
-ip = raw_input("Enter server ip: ")
-host = ip
+#ip = raw_input("Enter server ip: ")
+wifi_ip = check_output(['hostname', '-I'])
+print wifi_ip
+while len(wifi_ip) < 2:
+    wifi_ip = check_output(['hostname', '-I'])
+
+
+host = '10.42.0.1'
 port = 8080
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host,port))
@@ -24,6 +31,6 @@ while 1:
                      f.write(l)
                      l = s.recv(1024)
         f.close()
-	s.sendall("Done receiving".encode('utf-8'))
+        s.sendall("Done receiving".encode('utf-8'))
      else:
-	s.sendall("Received".encode('utf-8'))
+        s.sendall("Received".encode('utf-8'))
