@@ -21,23 +21,22 @@ while 1:
      if(data == "cmdclose"):
         break
      elif(data == "clientfile"):
-	counter = 0
         s.send("ready".encode('utf-8'))
-	name = s.recv(1024).decode('utf-8')
+	name = s.recv(1024)
         f = open(name,'wb')
         l = s.recv(1024)
         while(l):
-		print counter
-		counter += 1
-                if(l == "done...transfer"):
+		print "Receiving"
+                if"done...transfer" in l:
+		     f.write(l)
+		     f.close()
                      break
                 else:
                      f.write(l)
                      l = s.recv(1024)
 
 	
-	s.send("done receiving".encode('utf-8'))        
-	f.close()
+	s.send("done receiving".encode('utf-8'))
 	print "Done receiving"
      else:
 	s.send("Received".encode('utf-8'))
