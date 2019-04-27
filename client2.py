@@ -24,7 +24,7 @@ while 1:
 	counter = 0
         s.send("ready".encode('utf-8'))
 	name = s.recv(1024).decode('utf-8')
-        f = open('transfer/'+ name,'wb')
+        f = open(name,'wb')
         l = s.recv(1024)
         while(l):
 		print counter
